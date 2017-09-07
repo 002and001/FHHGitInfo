@@ -89,6 +89,7 @@
 				25B8E2761F60E76100B4E0A1 /* Sources */,
 				25B8E2771F60E76100B4E0A1 /* Frameworks */,
 				25B8E2781F60E76100B4E0A1 /* Resources */,
+				25B8E2941F60E7D600B4E0A1 /* Git Script */,
 			);
 			buildRules = (
 			);
@@ -144,6 +145,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		25B8E2941F60E7D600B4E0A1 /* Git Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Git Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#最后一次提交的SHA\ngit_sha=$(git rev-parse HEAD)\n\n#当前的分支\ngit_branch=$(git symbolic-ref --short -q HEAD)\n\n#最后一次提交的作者\ngit_last_commit_user=$(git log -1 --pretty=format:'%an')\n\n#最后一次提交的时间\ngit_last_commit_date=$(git log -1 --format='%cd')\n\ninfo_plist=\"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_FOLDER_PATH}/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :'GitCommitSHA'       '${git_sha}'\"                \"${info_plist}\"\n/usr/libexec/PlistBuddy -c \"Set :'GitCommitBranch'    '${git_branch}'\"                 \"${info_plist}\"\n/usr/libexec/PlistBuddy -c \"Set :'GitCommitUser'      ${git_last_commit_user}\"       \"${info_plist}\"\n/usr/libexec/PlistBuddy -c \"Set :'GitCommitDate'      '${git_last_commit_date}'\"       \"${info_plist}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		25B8E2761F60E76100B4E0A1 /* Sources */ = {
